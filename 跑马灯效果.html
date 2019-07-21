@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>Document</title>
+	<script src="lib/vue.min.js"></script>
+
+</head>
+<body>
+
+	<div id="app">
+		<input type="button" value="走起来" @click="scroll"/>
+		<input type="button" value="停起来" @click="stop"/>		
+		<p>{{Logo}}</p>
+	</div>
+
+	<script type="text/javascript">
+		var vm = new Vue({
+			el:"#app",
+			data:{
+				Logo:"中南财经政法大学欢迎您！"
+			},
+			methods:{
+				scroll(){
+					var _this=this;
+					// 设置定时任务
+					setInterval(function(){
+						// 截取Logo的首个字符
+						var start = _this.Logo.substring(0, 1);
+						// alert(start);
+						// 放在尾部
+						var end = _this.Logo.substring(1);
+						_this.Logo = end + start;
+						// alert(Logo);
+					}, 400)
+				},
+
+				stop(){
+
+				}
+			}
+		});
+	</script>
+
+</body>
+</html>
