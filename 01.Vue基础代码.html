@@ -1,33 +1,21 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-	<title>Document</title>
-	<script src="lib/vue.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./lib/vue.min.js"></script>
 </head>
 <body>
-	
-	
-	<div id="app">
-		{{ msg }}
-		<input type="button" value="按钮" v-bind:title="mytitle"/>
-		<input type="button" value="点击事件" v-on:click="show"/>
-	</div>
-
-	<script type="text/javascript">
-		var vm = new Vue({
-			el:"#app",
-			data: {
-				msg:"vue入门",
-				mytitle:"我是一个好按钮"
-			},
-			methods:{
-				show:function(){
-					alert("hello world");
-				}
+	<div>{{ msg }}</div>
+    <script>
+        var vm = new Vue({
+			el:'#app',
+			data:{
+				msg:'欢迎学习vue'
 			}
-
-		});
-	</script>
+		})
+    </script>
 </body>
 </html>
