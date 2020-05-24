@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>Document</title>
+	<script src="./lib/vue.min.js"></script>
+	<style>
+		.in{
+			width: 50px;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="app">
+		<input class="in" type="text" v-model="arg1" />
+		<select name="" id="" v-model="opt">
+			<option value="+">+</option>
+			<option value="-">-</option>
+			<option value="*">*</option>
+			<option value="/">/</option>
+		</select>
+		<input class="in" type="text" v-model="arg2"/>
+		<button @click="equal">=</button>
+		<input class="in" type="text" v-model="result"/>
+	</div>
+
+	<script>
+		var vm = new Vue({
+			el:'#app',
+			data:{
+				arg1:0,
+				arg2:0,
+				result:0,
+				opt:"+"
+			},
+			methods:{
+				equal(){
+					var strCalc = 'parseInt(this.arg1) '+ this.opt + ' parseInt(this.arg2)';
+					this.result = eval(strCalc);
+				}
+			}
+		})
+	</script>
+</body>
+</html>

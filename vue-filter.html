@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>Document</title>
+	<script src="./lib/vue.min.js"></script>
+</head>
+<body>
+	<div id="app">
+		<p>{{ msg | msgFormat('中国') }}</p>
+		<p>{{ new Date() | dateFormat }}</p>
+	</div>
+	<script>
+		var vm = new Vue({
+			el:'#app',
+			data:{
+				msg:"欢迎你来到中国社区,中国好样的啊！"
+			},
+			filters:{
+				msgFormat(input,arg1){
+					return input.replace(/中国/g,'日本');
+				},
+
+				dateFormat(input){
+					var dt = new Date(input);
+					var y = dt.getFullYear();
+					var m = dt.getMonth()+1;
+					var d = dt.getDate();
+					return y + '-' + m + '-' + d;
+				}
+			}
+		})
+	</script>
+</body>
+</html>

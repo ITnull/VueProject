@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>Document</title>
+	<script src="./lib/vue.min.js"></script>
+</head>
+
+<body>
+	<!-- <p id='app'>hello world {{ msg | repWords('中国')}}</p> -->
+	
+	<div id='app2'>
+		<p v-fontweight="500"> welcome to china</p>
+	</div>
+
+	<div id='app'>
+		
+		<p v-color="'red'"> welcome to china</p>
+		<p v-fontweight="300"> welcome to china</p>
+
+		<label for="">
+			id: <input type="text" v-model="id"/>
+		</label>
+		<label for="">
+			姓名: <input type="text" v-model="name"/>
+		</label>
+		<label for="">
+			性别: <input type="text" v-model="sex"/>
+		</label>
+		<label for="">
+			成绩: <input type="text" v-model="score" @keyup.enter="add"/>
+		</label>
+<!-- 		<label for="">
+			时间: <input type="text" />
+		</label> -->
+		<label for="">
+			<input type="button" value="添加" @click="add"/>
+		</label>
+		<label for="">
+			搜索名称关键字: <input type="text" v-model="keywords" v-focus/>
+		</label>
+	<table>
+		<thead>
+			<tr>
+				<td>id</td>
+				<td>姓名</td>
+				<td>性别</td>
+				<td>成绩</td>
+				<td>时间</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr v-for="item in search(keywords)" :key="item.id">
+				<td>{{ item.id }}</td>
+				<td>{{ item.name }}</td>
+				<td>{{ item.sex }}</td>
+				<td>{{ item.score }}</td>
+				<td>{{ item.ctime | dateFormat }}</td>
+				<td><a href="" @click.prevent="del(item.id)">删除</a></td>
+			</tr>
+		</tbody>
+	</table>
+	</div>
+
+	<script>
+		// 自定义全局指令
+		Vue.directive('color',{
+			bind:function(el,arg1){
+				el.style.color = arg1.value;
+			}
+		});
+
+		Vue.directive('focus',{
+			bind:function(el,arg1){
+				// el.style.color = arg1.value();
+			},
+			inserted:function(el){
+				el.focus();
+			},
+			updated:function(){
+
+			}
+		});
+
+		Vue.filter('repWords',function(input,arg1){
+			return input.replace(/中国/g,'美国');
+		});
+
+		var vm2 = new Vue({
+			el:'#app2',
+			data:{
+
+			},
+			directives:{	//自定义私有指令
+				'fontweight':{
+					bind:function(el,arg1){
+						el.style.fontWeight = arg1.value;
+					}
+				}
+			}
+		});
+
+		var vm = new Vue({
+			el:"#app",
+			data:{
+				id:'',
+				name:'',
+				sex:'',
+				score:'',
+				keywords:'',
+				msg:"欢迎来到中国，中国是好样的。",
+				list:[
+				{id:1,name:"peter",sex:"boy",score:99,ctime:new Date()},
+				{id:2,name:"rose",sex:"girl",score:90,ctime:new Date()}
+				]
+			},
+			methods:{
+				add(){
+					// 创建一个对象
+					var student = {id:this.id,name:this.name,sex:this.sex,score:this.score,ctime:new Date()};
+
+					this.list.push(student);
+					this.id=this.name=this.sex=this.score=this.ctime='';
+				},
+
+				del(id){
+					// 在list中找到该id的数据，将其删除
+					this.list.some(function(elem,index,list){
+						// console.log(elem.id.toString() +elem.name + index);
+ 						if(elem.id == id){
+ 							list.splice(index,1);
+ 						}
+					})
+
+						// this.list.some((item,i)=>{
+						// 	if(item.id == id ){
+						// 		this.list.splice(i,1);
+						// 	}
+						// })
+				},
+
+				search(keywords){
+					var newList=[];
+					this.list.forEach(function(elem){
+						if(elem.name.indexOf(keywords)!=-1){
+							newList.push(elem);
+						}
+						
+					});
+					return newList;
+				}
+			},
+
+			filters:{
+				dateFormat(input){
+					var dt = new Date(input);
+					var y = dt.getFullYear();
+					var m = (dt.getMonth()+1).toString().padStart(2,'0');
+					var d = dt.getDate();
+					return y+'-'+m+'-'+d;
+				}
+			}
+		})
+	</script>
+</body>
+</html>

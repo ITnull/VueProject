@@ -4,16 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+	<title>Document</title>
+	<style>
+		[v-cloak] {
+			display:none
+		}
+	</style>
     <script src="./lib/vue.min.js"></script>
 </head>
 <body>
-	<div>{{ msg }}</div>
+	<div id='app'>
+		<h1> {{ msg1 }}</h1>
+		<p v-cloak>---{{ msg1 }}</p>
+		<div v-html="msg2">1211122222</div>
+		<div v-text="msg1">hello world</div>
+	</div>
+	
     <script>
         var vm = new Vue({
 			el:'#app',
 			data:{
-				msg:'欢迎学习vue'
+				msg1:'欢迎学习vue',
+				msg2:'<html> <h1>good study!</h1> </html>'
 			}
 		})
     </script>
